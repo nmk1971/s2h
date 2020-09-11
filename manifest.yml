@@ -1,0 +1,7 @@
+---
+    applications :
+    - name: "s2hCreator"
+      path : "dist/s2h-quiz"
+      memory : 256M
+      buildpack :
+      - "https://github.com/cloudfoundry/staticfile-buildpack.git"
