@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="flex text-center">Confirmation</h1>
+<hr>
+<mat-dialog-content >
+    <span  class="mat-display-1 font-mono text-gray-900">{{message}}</span>
+</mat-dialog-content>
+<mat-dialog-actions class="flex flex-row justify-between py-5">
+    <div class="flex items-center">
+        <button mat-raised-button mat-dialog-close color="primary"   (click)="cancel()">
+            Non
+        </button>
+    </div>
+    <div class="flex items-center">
+        <button mat-raised-button color="warn" (click)="confirm()">
+            Oui
+        </button>
+    </div>
+
+</mat-dialog-actions>

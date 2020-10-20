@@ -1,5 +1,16 @@
-<div class="p-d-flex p-jc-center">
-    <h1 class="p-mr-2">Code</h1>
-    
+<p-toast position="bottom-center"></p-toast>
+
+<div id="central">
+    <div class="content">
+        <form [formGroup]="accessForm">
+           <span class="p-float-label">
+           <input id="float-input" type="text" pInputText formControlName="code" required> 
+ 
+                    <label for="float-input">Code</label>
+            </span>
+
+        </form>
+        <p-button label="Connecter" (click)="connect()" [disabled]="!accessForm.valid" icon iconPos style
+            onFocus onBlur></p-button>
+    </div>
 </div>
-<p-button type label="Connecter" icon iconPos disabled style  onFocus onBlur></p-button>
