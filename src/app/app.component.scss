@@ -1,0 +1,28 @@
+
+.fixed-header, .fixed-footer{
+    width: 100%;
+    position: fixed;        
+}
+
+.fixed-header{
+    top: 0;
+    background-color: transparent;
+}
+.fixed-footer{
+    bottom: 0;
+    background-color: #333;
+    color: white;
+}
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+nav a{
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 25px;
+    display: inline-block;
+}
