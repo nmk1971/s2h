@@ -49,7 +49,7 @@ export class LandPageComponent implements OnInit {
           }
         )).subscribe({
           next: (response: IApiResponse) => {
-            if (response.status === "success") {
+            if (response.status === 'success') {
               const isAnonymous = response.payload.isAnonymous;
               if (isAnonymous) {
                 this.route.navigate(['/response', response.payload.idquiz]);
@@ -63,7 +63,7 @@ export class LandPageComponent implements OnInit {
               severity: 'error',
               summary: 'Error',
               detail: error.message
-            })
+            });
           },
           complete: console.log
         });
