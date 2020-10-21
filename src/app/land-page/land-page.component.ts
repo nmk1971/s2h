@@ -1,7 +1,10 @@
 import { IApiResponse } from './../shared/helpers/api-response.model';
 import { SessionService } from './../shared/session.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder, FormGroup,
+  Validators
+} from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -26,7 +29,14 @@ export class LandPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.accessForm = this.fb.group({
-      code: ['', Validators.required]
+      code: ['', Validators.compose(
+        [
+          Validators.required,
+          Validators.maxLength(6),
+          Validators.minLength(6)
+        ]
+      )
+      ]
     });
   }
 
@@ -38,24 +48,24 @@ export class LandPageComponent implements OnInit {
             this.handleApiResponse(response);
           }
         )).subscribe({
-          next: (response: IApiResponse)=>{
-            if(response.status==="success"){
-            const isAnonymous = response.payload.isAnonymous;
-            if(isAnonymous){
-              this.route.navigate(['/response',response.payload.idquiz]);
-            }else{
-              this.route.navigate(['/login']);
+          next: (response: IApiResponse) => {
+            if (response.status === "success") {
+              const isAnonymous = response.payload.isAnonymous;
+              if (isAnonymous) {
+                this.route.navigate(['/response', response.payload.idquiz]);
+              } else {
+                this.route.navigate(['/login']);
+              }
             }
-          }
           },
-          error:(error: Error)=>{
+          error: (error: Error) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
               detail: error.message
             })
           },
-          complete:console.log
+          complete: console.log
         });
   }
 

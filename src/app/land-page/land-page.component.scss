@@ -8,13 +8,33 @@
     justify-content: center;
 }
 
+#float-input{
+    font-size: 4rem;
+    text-align: center;
+
+}
+
+#label{
+ //   font-size: 3em;
+    text-align: center;
+}
+
 .content{  
+    display: flex;
+    flex-direction: column;
     align-self: center;
     justify-self: center;
-
+    align-content: center;
+    justify-content: center;
 }
 
-p-button{
-    width:100%;
-    padding: 7px;
+form{
+    align-self: center;
+    justify-self: center;
 }
+
+button{
+    padding: 17px auto;
+    margin: 30px auto;
+}
+

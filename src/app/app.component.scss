@@ -1,7 +1,12 @@
-
+.global {                /* body - or any parent wrapper */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
 .fixed-header, .fixed-footer{
     width: 100%;
-    position: fixed;        
+ //   position: fixed;        
 }
 
 .fixed-header{
@@ -19,6 +24,7 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    flex: 1;
   }
 nav a{
     color: #fff;
