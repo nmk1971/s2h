@@ -1,3 +1,4 @@
+import { ToastService } from './../shared/toast.service';
 import { IApiResponse } from './../shared/helpers/api-response.model';
 import { SessionService } from './../shared/session.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,8 +6,7 @@ import {
   FormBuilder, FormGroup,
   Validators
 } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
@@ -14,8 +14,7 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-land-page',
   templateUrl: './land-page.component.html',
-  styleUrls: ['./land-page.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./land-page.component.scss']
 })
 export class LandPageComponent implements OnInit {
   public accessForm: FormGroup;
@@ -24,7 +23,7 @@ export class LandPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sessionService: SessionService,
-    private messageService: MessageService,
+    private toastService: ToastService,
     private route: Router) { }
 
   ngOnInit(): void {
@@ -59,11 +58,7 @@ export class LandPageComponent implements OnInit {
             }
           },
           error: (error: Error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.message
-            });
+            this.toastService.notifyToast('error', 'Error', error.message);
           },
           complete: console.log
         });
@@ -72,19 +67,10 @@ export class LandPageComponent implements OnInit {
 
   private handleApiResponse(response: IApiResponse): void {
     if (response.status === 'success') {
-      this.messageService.add({
-        life: 4000,
-        severity: 'success',
-        summary: response.message,
-        detail: 'We will redirect you'
-      });
+      this.toastService.notifyToast('success', response.message, 'We will redirect you', 1000);
 
     } else if (response.status === 'error') {
-      this.messageService.add({
-        severity: 'error',
-        summary: response.message,
-        detail: response.message
-      });
+      this.toastService.notifyToast('error', response.message, response.message);
     }
   }
 }
