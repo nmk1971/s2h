@@ -9,7 +9,7 @@ import { LandPageComponent } from './land-page/land-page.component';
 const routes: Routes = [
   { path: 'home', component: LandPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'response/:id', component: ResponsePageComponent },
+  { path: 'response', component: ResponsePageComponent },
   { path: 'contact', component: ContactPageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full'}
