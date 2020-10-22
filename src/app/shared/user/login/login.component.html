@@ -8,7 +8,7 @@
     <mat-error *ngIf="loginForm.value.loginname.invalid || loginForm.hasError">{{getErrorMessage()}}</mat-error>
     <mat-icon matPrefix class="px-6">login name</mat-icon>
   </mat-form-field>
- <p-toast position="top-right"></p-toast>
+
   <mat-form-field>
     <input  type="password"
       placeholder="Tapez votre mot de passe" required matInput formControlName="password"
@@ -24,3 +24,7 @@
     Se connecter
   </button>
 </form>
+
+<pre><code>
+  {{session | json}}
+</code></pre>

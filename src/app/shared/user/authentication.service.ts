@@ -22,21 +22,31 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(loginname: string, password: string): Observable<any> {
+    login(loginname: string, password: string, groupid: string): Observable<any> {
 
         let user: IUser;
-        return this.http.post<any>(`${environment.apiUrl}/api/v1/response/student/authenticate`, { loginname, password })
+        return this.http.post<any>(`${environment.apiUrl}/api/v1/response/student/authenticate`, { loginname, password, groupid })
             .pipe(map(response => {
-                user = { ...response.payload.user };
-                user.token = response.payload.token;
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
+                try {
+                    user = { ...response.payload.user };
+                    user.token = response.payload.token;
 
-                return user;
+                    // login successful if there's a jwt token in the response
+                    if (user && user.token) {
+                        // store user details and jwt token in local storage to keep user logged in between page refreshes
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.currentUserSubject.next(user);
+                    }
+
+                } catch (error) {
+                    user = null;
+                }
+                console.log(user);
+                return ({
+                    status: response.status,
+                    message: response.message,
+                    payload: user
+                });
             }));
     }
 

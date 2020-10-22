@@ -1,3 +1,5 @@
+import { SessionService } from './../../session.service';
+import { ToastService } from './../../toast.service';
 import { IApiResponse } from './../../helpers/api-response.model';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
@@ -9,50 +11,59 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers:[MessageService]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
   public hide: boolean;
+  public session: any;
 
 
 
-  constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private messageService: MessageService,
-              private authenticationService: AuthenticationService) {
-         // redirect to home if already logged in
-     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/response', 1]);
-     }
-    }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastService: ToastService,
+    private authenticationService: AuthenticationService,
+    private sessionService: SessionService) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       loginname: ['', Validators.compose([
-        Validators.required  ])],
+        Validators.required])],
       password: ['', Validators.required]
     });
-
+    this.session = this.sessionService.currentSessionValue;
   }
 
-  onSubmit(): void{
-    this.authenticationService.login(this.loginForm.value.loginname, this.loginForm.value.password)
+  onSubmit(): void {
+
+    this.authenticationService.login(
+      this.loginForm.value.loginname,
+      this.loginForm.value.password,
+      this.session.group
+    )
       .pipe(first())
-      .subscribe(
-       (data: IApiResponse) => {
-         this.messageService.add({severity:'info',summary:'Success',detail:data.message,life:4000});
-         this.router.navigate(['/creator/home']);
+      .subscribe({
+        next: (data: IApiResponse) => {
+          if (data.status === 'success') {
+            this.toastService.notifyToast('info', 'Success', data.message, 4000);
+            this.router.navigate(['/response']);
+          } else if (data.status === 'error') {
+            this.toastService.notifyToast('error', 'Error', data?.message);
+          }
         },
-        error => {
-          this.messageService.add({severity:'error',summary:'Error',detail:'Failed to login',life:4000})
-        });
+        error: (error) => {
+          this.toastService.notifyToast('error', 'Error', error.message);
+        },
+        complete: () => { console.log(this.session); }
+      });
   }
 
-  getErrorMessage(): string{
+  getErrorMessage(): string {
     return 'invalid loginname, try again';
   }
 

@@ -51,7 +51,7 @@ export class LandPageComponent implements OnInit {
             if (response.status === 'success') {
               const isAnonymous = response.payload.isAnonymous;
               if (isAnonymous) {
-                this.route.navigate(['/response', response.payload.idquiz]);
+                this.route.navigate(['/response']);
               } else {
                 this.route.navigate(['/login']);
               }

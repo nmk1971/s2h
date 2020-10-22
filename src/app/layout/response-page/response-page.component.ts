@@ -1,4 +1,9 @@
+import { IUser } from './../../shared/user/user.model';
+import { AuthenticationService } from './../../shared/user/authentication.service';
+import { ISession } from './../../shared/models/session.model';
+import { SessionService } from './../../shared/session.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-response-page',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResponsePageComponent implements OnInit {
 
-  constructor() { }
+  public session: ISession;
+  public currentUser: IUser;
+
+  constructor(private router: Router,
+              private sessionService: SessionService,
+              private authenticationService: AuthenticationService) {
+
+   }
 
   ngOnInit(): void {
+    this.session = this.sessionService.currentSessionValue;
+    this.currentUser = this.authenticationService.currentUserValue;
+    if (this.session === null || (this.session.isAnonymous === false && this.currentUser === null)){
+      this.router.navigate(['/home']);
+    }
   }
 
 }
