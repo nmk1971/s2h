@@ -4,10 +4,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Code du Quiz</mat-label>
-                <input matInput placeholder="CODE" minlength="6" maxlength="6" size="6"
+                <input class = "input-code" matInput placeholder="CODE" minlength="6" maxlength="6" size="6"
                 formControlName="code" required>
-                <mat-icon matSuffix>code</mat-icon>
-                <mat-hint>SVP veillez saisir le CODE</mat-hint>
               </mat-form-field>
         </form>
         <button mat-raised-button color="primary" (click)="connect()" [disabled]="!accessForm.valid">Connecter</button>

@@ -1,3 +1,4 @@
+import { SessionService } from './../session.service';
 import { IUser } from './user.model';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -13,7 +14,8 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<IUser>;
     public currentUser: Observable<IUser>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private sessionService: SessionService) {
         this.currentUserSubject = new BehaviorSubject<IUser>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -52,7 +54,8 @@ export class AuthenticationService {
 
     logout(): void {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.clear();
         this.currentUserSubject.next(null);
+        this.sessionService.endSession();
     }
 }

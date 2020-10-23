@@ -1,0 +1,67 @@
+#central{
+    height: 80vh;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+#float-input{
+    font-size: 4rem;
+    text-align: center;
+
+}
+
+#label{
+ //   font-size: 3em;
+    text-align: center;
+}
+.pwd-group{
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-content: center;
+    justify-content: center;
+}
+.content{  
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.content-div{  
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+    justify-content: center;
+    width: 50%;
+}
+
+
+form{
+    align-self: center;
+    justify-self: center;
+}
+
+.submit-button{
+    padding: 17px auto;
+    margin: 30px auto;
+}
+
+.input-code {
+    font-size: 40px;
+    line-height: 32px;
+    font-weight: 400;
+    text-align: center;
+}
+
+mat-label{
+    font-size: 16px;
+}
