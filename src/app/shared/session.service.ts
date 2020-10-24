@@ -1,3 +1,4 @@
+import { AuthenticationService } from './user/authentication.service';
 import { ISession } from './models/session.model';
 import { environment } from './../../environments/environment';
 import { IApiResponse } from './helpers/api-response.model';
@@ -18,15 +19,27 @@ import { map } from 'rxjs/operators';
 export class SessionService {
   private currentSessionSubject: BehaviorSubject<ISession>;
   public currentSession$: Observable<ISession>;
+  private sessionResponseSubject: BehaviorSubject<any>;
+  public sessionResponse$: Observable<any>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+    // set raw session as observable
     this.currentSessionSubject = new BehaviorSubject<ISession>(JSON.parse(localStorage.getItem('currentSession')));
     this.currentSession$ = this.currentSessionSubject.asObservable();
+
+    // set session populated for student response
+    this.sessionResponseSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('sessionResponse')));
+    this.sessionResponse$ = this.sessionResponseSubject.asObservable();
   }
 
   public get currentSessionValue(): ISession {
     return this.currentSessionSubject.value;
-}
+  }
+
+  public get sessionResponseValue(): any {
+    return this.sessionResponseSubject.value;
+  }
+
   connect(code: string): Observable<any> {
     let session: ISession;
     return this.http.get(`${environment.apiUrl}/api/v1/response/sessionbycode/${code}`)
@@ -49,10 +62,36 @@ export class SessionService {
       })) as Observable<IApiResponse>;
   }
 
+  getTheQuiz(sessionId: string): Observable<any> {
+    let sessionResponse: any;
+    return this.http.get(`${environment.apiUrl}/api/v1/response/session/${sessionId}`)
+      .pipe(map((response: IApiResponse) => {
+        try {
+          sessionResponse = { ...response.payload };
+          if (sessionResponse) {
+            if (sessionResponse.isAnonymous === false){
+              sessionResponse.studentId = this.authenticationService.currentUserValue._id;
+            }
+            localStorage.setItem('sessionResponse', JSON.stringify(sessionResponse));
+            this.currentSessionSubject.next(sessionResponse);
+          }
+
+        } catch (error) {
+          sessionResponse = null;
+        }
+        return ({
+          status: response.status,
+          message: response.message,
+          payload: sessionResponse
+        });
+      })) as Observable<IApiResponse>;
+  }
 
   endSession(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('currentSession');
+    localStorage.removeItem('sessionResponse');
     this.currentSessionSubject.next(null);
+    this.sessionResponseSubject.next(null);
   }
 }

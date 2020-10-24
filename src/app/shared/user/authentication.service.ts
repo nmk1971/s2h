@@ -14,8 +14,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<IUser>;
     public currentUser: Observable<IUser>;
 
-    constructor(private http: HttpClient,
-                private sessionService: SessionService) {
+    constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<IUser>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -56,6 +55,5 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.clear();
         this.currentUserSubject.next(null);
-        this.sessionService.endSession();
     }
 }

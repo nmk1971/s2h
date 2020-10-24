@@ -7,11 +7,15 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ResponsePageComponent } from './response-page/response-page.component';
+import { QcmComponent } from './qcm/qcm.component';
+import { QcuComponent } from './qcu/qcu.component';
+import { OrderingComponent } from './ordering/ordering.component';
+import { InputComponent } from './input/input.component';
 
 
 
 @NgModule({
-  declarations: [FooterComponent, NavBarComponent, ContactPageComponent, AboutPageComponent, ResponsePageComponent],
+  declarations: [FooterComponent, NavBarComponent, ContactPageComponent, AboutPageComponent, ResponsePageComponent, QcmComponent, QcuComponent, OrderingComponent, InputComponent],
   imports: [
     CommonModule,
     RouterModule,

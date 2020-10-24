@@ -1,4 +1,13 @@
-<p>response-page works!</p>
-<pre><code>
-   {{session | json}}
-</code></pre>
+<p-card>
+   <ng-template pTemplate="title">
+     Quiz : {{sessionResponse.idquiz.title}}
+   </ng-template>
+   <ng-template pTemplate="subtitle">
+      Description : {{sessionResponse.idquiz.description}}
+   </ng-template>
+   <ng-template pTemplate="content">
+      <p-steps [model]="questions" [readonly]="false"></p-steps>
+
+      <router-outlet></router-outlet>
+   </ng-template>
+</p-card>
