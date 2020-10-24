@@ -1,12 +1,11 @@
+import { QuizStepperModule } from './shared/quiz-stepper/quiz-stepper.module';
 import { UserModule } from './shared/user/user.module';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
 import { JwtInterceptor } from './shared/helpers/jwt.intercepror';
-import { MessageService } from 'primeng/api';
 import { PrimengModule } from './shared/primeng/primeng.module';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,7 +30,8 @@ import { CommonModule } from '@angular/common';
     LayoutModule,
     PrimengModule,
     HttpClientModule,
-    UserModule
+    UserModule,
+    QuizStepperModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

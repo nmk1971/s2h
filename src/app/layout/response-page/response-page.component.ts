@@ -54,20 +54,23 @@ export class ResponsePageComponent implements OnInit {
       }
     );
     this.sessionResponse = this.sessionService.sessionResponseValue;
-  //  console.log(this.sessionResponse);
+    //  console.log(this.sessionResponse);
+
     if (this.sessionResponse) {
-    this.questions = this.sessionResponse?.idquiz.questions.map(q => {
-    const nq = {...q};
-    switch (nq.question_type){
-      case 'QCM' : { nq.routerLink = 'app-qcm'; break; }
-      case 'QCU' : { nq.routerLink = 'app-qcu'; break; }
-      case 'INPUT' : { nq.routerLink = 'app-input'; break; }
-      case 'ORDERING' : { nq.routerLink = 'app-ordering'; break; }
+      this.questions = this.sessionResponse?.idquiz.questions.map(q => {
+        const nq = { ...q };
+        switch (nq.question_type) {
+          case 'QCM': { nq.routerLink = `qcm/${q._id}`; break; }
+          case 'QCU': { nq.routerLink = `qcu/${q._id}`; break; }
+          case 'INPUT': { nq.routerLink = 'app-input'; break; }
+          case 'ORDERING': { nq.routerLink = 'app-ordering'; break; }
+        }
+        return nq;
+      });
+
+        console.log(this.questions);
     }
-    return nq;
-    });
- //   console.log(this.questions);
-    }
+
   }
 
 }

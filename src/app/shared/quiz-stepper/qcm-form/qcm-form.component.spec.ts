@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QcmComponent } from './qcm.component';
+import { QcmFormComponent } from './qcm-form.component';
 
-describe('QcmComponent', () => {
-  let component: QcmComponent;
-  let fixture: ComponentFixture<QcmComponent>;
+describe('QcmFormComponent', () => {
+  let component: QcmFormComponent;
+  let fixture: ComponentFixture<QcmFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QcmComponent ]
+      declarations: [ QcmFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QcmComponent);
+    fixture = TestBed.createComponent(QcmFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

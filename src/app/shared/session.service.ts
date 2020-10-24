@@ -69,7 +69,7 @@ export class SessionService {
         try {
           sessionResponse = { ...response.payload };
           if (sessionResponse) {
-            if (sessionResponse.isAnonymous === false){
+            if (!sessionResponse.isAnonymous){
               sessionResponse.studentId = this.authenticationService.currentUserValue._id;
             }
             localStorage.setItem('sessionResponse', JSON.stringify(sessionResponse));

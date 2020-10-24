@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderingComponent } from './ordering.component';
+import { QcuFormComponent } from './qcu-form.component';
 
-describe('OrderingComponent', () => {
-  let component: OrderingComponent;
-  let fixture: ComponentFixture<OrderingComponent>;
+describe('QcuFormComponent', () => {
+  let component: QcuFormComponent;
+  let fixture: ComponentFixture<QcuFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderingComponent ]
+      declarations: [ QcuFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderingComponent);
+    fixture = TestBed.createComponent(QcuFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
