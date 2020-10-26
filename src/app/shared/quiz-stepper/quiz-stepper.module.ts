@@ -23,6 +23,6 @@ import { QcmFormComponent } from './qcm-form/qcm-form.component';
     MaterialModule,
     PrimengModule
   ],
-  exports:[QcuFormComponent, QcmFormComponent]
+  exports: [QcuFormComponent, QcmFormComponent]
 })
 export class QuizStepperModule { }

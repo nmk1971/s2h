@@ -1,4 +1,31 @@
-<p>qcu-form works!</p>
-<pre><code>
-    {{currentQuestion | json}}
-</code></pre>
+<p><span>Question : </span><span>{{currentQuestion.questionText}}</span></p>
+<ng-template pTemplate="subtitle">
+    NB : Choisir la réponse valide
+ </ng-template>
+<div *ngFor="let resp of currentQuestion.qcxResponse">
+    <span>
+        <mat-radio-button [value]="resp.isValid">
+        </mat-radio-button>
+    </span>
+    <span>
+        <mat-label>
+            {{resp.label}}
+        </mat-label>
+    </span>
+</div>
+<div>
+    <button *ngIf="currentQuestion.previous">
+        Précédent
+    </button>
+    <button *ngIf="currentQuestion.next">
+        Suivant
+    </button>
+    <button *ngIf="!currentQuestion.next">
+        Terminer
+    </button>
+       
+    <button (click)="aff(currentQuestion.qcxResponse)">
+        voir
+    </button>
+</div>
+

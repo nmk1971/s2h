@@ -16,17 +16,17 @@ import { MenuItem } from 'primeng/api';
 })
 export class ResponsePageComponent implements OnInit {
 
-  public session: ISession;
-  public currentUser: IUser;
-  public sessionResponse: any;
-  public questions: MenuItem[];
-
   constructor(private router: Router,
               private sessionService: SessionService,
               private authenticationService: AuthenticationService,
               private toastService: ToastService) {
 
   }
+
+  public session: ISession;
+  public currentUser: IUser;
+  public sessionResponse: any;
+  public questions: MenuItem[];
 
   ngOnInit(): void {
     this.session = this.sessionService.currentSessionValue;
@@ -68,7 +68,7 @@ export class ResponsePageComponent implements OnInit {
         return nq;
       });
 
-        console.log(this.questions);
+      console.log(this.questions);
     }
 
   }

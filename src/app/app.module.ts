@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuizStepperModule } from './shared/quiz-stepper/quiz-stepper.module';
 import { UserModule } from './shared/user/user.module';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
@@ -31,7 +32,9 @@ import { CommonModule } from '@angular/common';
     PrimengModule,
     HttpClientModule,
     UserModule,
-    QuizStepperModule
+    QuizStepperModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
