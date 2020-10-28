@@ -43,7 +43,7 @@ export class SessionService {
   connect(code: string): Observable<any> {
     let session: ISession;
     return this.http.get(`${environment.apiUrl}/api/v1/response/sessionbycode/${code}`)
-      .pipe(map((response: IApiResponse) => {
+    .pipe(map((response: IApiResponse) => {
         try {
           session = { ...response.payload };
           if (session) {
@@ -60,16 +60,16 @@ export class SessionService {
           payload: session
         });
       })) as Observable<IApiResponse>;
-  }
+    }
 
-  getTheQuiz(sessionId: string): Observable<any> {
+    getTheQuiz(sessionId: string): Observable<any> {
     let sessionResponse: any;
     return this.http.get(`${environment.apiUrl}/api/v1/response/session/${sessionId}`)
       .pipe(map((response: IApiResponse) => {
         try {
           sessionResponse = { ...response.payload };
           if (sessionResponse) {
-            if (!sessionResponse.isAnonymous){
+            if (!sessionResponse.isAnonymous) {
               sessionResponse.studentId = this.authenticationService.currentUserValue._id;
             }
             sessionResponse.idquiz.questions = sessionResponse.idquiz.questions.map((quest, index) => {
@@ -77,14 +77,21 @@ export class SessionService {
               quest.next = null;
               quest.previousQuestionType = null;
               quest.nextQuestionType = null;
-              if (index > 0){
+              if (index > 0) {
                 quest.previous = sessionResponse.idquiz.questions[index - 1]._id;
                 quest.previousQuestionType = sessionResponse.idquiz.questions[index - 1].question_type;
               }
-              if (index < sessionResponse.idquiz.questions.length - 1){
+              if (index < sessionResponse.idquiz.questions.length - 1) {
                 quest.next = sessionResponse.idquiz.questions[index + 1]._id;
                 quest.nextQuestionType = sessionResponse.idquiz.questions[index + 1].question_type;
               }
+              if ((quest.question_type === 'QCM') || (quest.question_type === 'QCU')) {
+                quest.qcxResponse = quest.qcxResponse.map(resp => {
+                  resp.isValid = false;
+                  return resp;
+                });
+              }
+
               return quest;
             });
             localStorage.setItem('sessionResponse', JSON.stringify(sessionResponse));
@@ -100,13 +107,18 @@ export class SessionService {
           payload: sessionResponse
         });
       })) as Observable<IApiResponse>;
-  }
+    }
 
-  endSession(): void {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentSession');
-    localStorage.removeItem('sessionResponse');
-    this.currentSessionSubject.next(null);
-    this.sessionResponseSubject.next(null);
+    notify(session: any): void {
+      localStorage.setItem('sessionResponse', JSON.stringify(session));
+      this.currentSessionSubject.next(session);
+    }
+
+    endSession(): void {
+      // remove user from local storage to log user out
+      localStorage.removeItem('currentSession');
+      localStorage.removeItem('sessionResponse');
+      this.currentSessionSubject.next(null);
+      this.sessionResponseSubject.next(null);
+    }
   }
-}

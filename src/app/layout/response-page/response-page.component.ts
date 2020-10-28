@@ -68,7 +68,6 @@ export class ResponsePageComponent implements OnInit {
         return nq;
       });
 
-      console.log(this.questions);
     }
 
   }

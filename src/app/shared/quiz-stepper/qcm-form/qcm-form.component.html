@@ -22,7 +22,7 @@
     <button mat-raised-button color="primary" *ngIf="currentQuestion.next" (click)="nextPage()">
         Suivant
     </button>
-    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="sendResponses()">
+    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="postResponsesToApi()">
         Terminer
     </button>
 
@@ -30,8 +30,7 @@
         voir
     </button>-->
 </div>
-<!--
+
 <pre><code>
-    {{currentQuestion | json}}
+    {{session | json}}
 </code></pre>
--->
