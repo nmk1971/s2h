@@ -20,7 +20,6 @@ export class QcuFormComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log('QCU Init');
     this.session = this.sessionService.sessionResponseValue;
     this.subscription = this.route.params.subscribe(p => {
       this.questionId = p.qid;
@@ -30,10 +29,6 @@ export class QcuFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  aff(msg): void {
-    console.log(msg);
   }
 
   radioChecked(index): void {
@@ -53,12 +48,13 @@ export class QcuFormComponent implements OnInit, OnDestroy {
 
   previousPage(): void {
     this.saveQuestion(this.currentQuestion);
-    this.router.navigate([getRoute(this.currentQuestion,'previous')]);
+    this.router.navigate([getRoute(this.currentQuestion, 'previous')]);
   }
 
 
   postResponsesToApi(): void {
-
+    this.saveQuestion(this.currentQuestion);
+    console.log(this.sessionService.currentSessionValue);
   }
 
   saveQuestion(quest): void{

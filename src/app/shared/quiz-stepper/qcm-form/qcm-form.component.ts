@@ -52,6 +52,8 @@ export class QcmFormComponent implements OnInit, OnDestroy {
   }
 
   postResponsesToApi(): void {
+    this.saveQuestion(this.currentQuestion);
+    console.log(this.sessionService.currentSessionValue);
 
   }
 
