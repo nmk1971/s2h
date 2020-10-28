@@ -1,37 +1,37 @@
 <p><span>Question : </span><span>{{currentQuestion.questionText}}</span></p>
 <ng-template pTemplate="subtitle">
     NB : Choisir une ou plusieurs réponses
- </ng-template>
-<div *ngFor="let response of currentQuestion.qcxResponse">
-    <span>
-        <mat-checkbox [(ngModel)]="response.isValid">
-        </mat-checkbox>
-    </span>
-    <span>
-        <mat-label>
-            {{response.label}}
-        </mat-label>
-    </span>
-</div>
+</ng-template>
+
 <div>
-    <button *ngIf="currentQuestion.previous">
+
+    <div *ngFor="let response of currentQuestion.qcxResponse" class="table-row">
+        <div class="p-flex p-jc-center">
+            <mat-checkbox [(ngModel)]="response.isValid">{{response.label}}
+            </mat-checkbox>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="p-mr-2 p-as-end p-d-flex p-jc-between">
+    <button mat-raised-button color="primary" *ngIf="currentQuestion.previous" (click)="previousPage()">
         Précédent
     </button>
-    <button *ngIf="currentQuestion.next">
+    <button mat-raised-button color="primary" *ngIf="currentQuestion.next" (click)="nextPage()">
         Suivant
     </button>
-    <button *ngIf="!currentQuestion.next">
+    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="sendResponses()">
         Terminer
     </button>
-   
-    <button (click)="aff(currentQuestion.qcxResponse)">
+
+    <!--  <button (click)="aff(currentQuestion.qcxResponse)">
         voir
-    </button>
-  <pre><code>
-     <input type="text" name="i" [(ngModel)]="i"> <h1>{{i}}</h1>
-    {{
-        currentQuestion.qcxResponse | json
-    }}
-  </code></pre>  
-    
+    </button>-->
 </div>
+<!--
+<pre><code>
+    {{currentQuestion | json}}
+</code></pre>
+-->

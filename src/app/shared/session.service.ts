@@ -72,6 +72,21 @@ export class SessionService {
             if (!sessionResponse.isAnonymous){
               sessionResponse.studentId = this.authenticationService.currentUserValue._id;
             }
+            sessionResponse.idquiz.questions = sessionResponse.idquiz.questions.map((quest, index) => {
+              quest.previous = null;
+              quest.next = null;
+              quest.previousQuestionType = null;
+              quest.nextQuestionType = null;
+              if (index > 0){
+                quest.previous = sessionResponse.idquiz.questions[index - 1]._id;
+                quest.previousQuestionType = sessionResponse.idquiz.questions[index - 1].question_type;
+              }
+              if (index < sessionResponse.idquiz.questions.length - 1){
+                quest.next = sessionResponse.idquiz.questions[index + 1]._id;
+                quest.nextQuestionType = sessionResponse.idquiz.questions[index + 1].question_type;
+              }
+              return quest;
+            });
             localStorage.setItem('sessionResponse', JSON.stringify(sessionResponse));
             this.currentSessionSubject.next(sessionResponse);
           }

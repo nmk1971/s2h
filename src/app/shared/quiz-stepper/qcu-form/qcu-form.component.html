@@ -2,9 +2,9 @@
 <ng-template pTemplate="subtitle">
     NB : Choisir la réponse valide
  </ng-template>
-<div *ngFor="let resp of currentQuestion.qcxResponse">
+<div *ngFor="let resp of currentQuestion.qcxResponse; let i=index" class="table-row">
     <span>
-        <mat-radio-button [value]="resp.isValid">
+        <mat-radio-button [checked]="resp.isValid" (change)='radioChecked(i)'>
         </mat-radio-button>
     </span>
     <span>
@@ -13,19 +13,24 @@
         </mat-label>
     </span>
 </div>
-<div>
-    <button *ngIf="currentQuestion.previous">
+
+<div class="p-d-flex p-jc-between">
+    <button  mat-raised-button color="primary" *ngIf="currentQuestion.previous" (click)="previousPage()">
         Précédent
     </button>
-    <button *ngIf="currentQuestion.next">
+    <button mat-raised-button color="primary" *ngIf="currentQuestion.next" (click)="nextPage()">
         Suivant
     </button>
-    <button *ngIf="!currentQuestion.next">
+    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="sendResponses()">
         Terminer
     </button>
-       
-    <button (click)="aff(currentQuestion.qcxResponse)">
+   
+  <!--  <button (click)="aff(currentQuestion.qcxResponse)">
         voir
-    </button>
+    </button>-->
 </div>
-
+<!--
+<pre><code>
+    {{currentQuestion | json}}
+</code></pre>
+-->

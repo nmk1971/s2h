@@ -45,6 +45,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
 import { InplaceModule } from 'primeng/inplace';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TableModule } from 'primeng/table';
 
 const material = [
   AutoCompleteModule,
@@ -90,7 +91,8 @@ const material = [
   FocusTrapModule,
   InplaceModule,
   ProgressBarModule,
-  ProgressSpinnerModule
+  ProgressSpinnerModule,
+  TableModule
 ];
 
 @NgModule({

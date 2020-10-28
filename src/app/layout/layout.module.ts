@@ -9,8 +9,6 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { ResponsePageComponent } from './response-page/response-page.component';
 
 
-
-
 @NgModule({
   declarations: [FooterComponent, NavBarComponent, ContactPageComponent, AboutPageComponent, ResponsePageComponent],
   imports: [
