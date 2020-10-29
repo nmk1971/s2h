@@ -4,7 +4,7 @@ import { IUser } from './../../shared/user/user.model';
 import { AuthenticationService } from './../../shared/user/authentication.service';
 import { ISession } from './../../shared/models/session.model';
 import { SessionService } from './../../shared/session.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { StepsModule } from 'primeng/steps';
 import { MenuItem } from 'primeng/api';
@@ -41,6 +41,20 @@ export class ResponsePageComponent implements OnInit {
         next: (data: IApiResponse) => {
           if (data.status === 'success') {
             this.sessionResponse = data.payload;
+            if (this.sessionResponse) {
+              this.questions = this.sessionResponse?.idquiz.questions.map(q => {
+                const nq = { ...q };
+                switch (nq.question_type) {
+                  case 'QCM': { nq.routerLink = `qcm/${q._id}`; break; }
+                  case 'QCU': { nq.routerLink = `qcu/${q._id}`; break; }
+                  case 'INPUT': { nq.routerLink = 'app-input'; break; }
+                  case 'ORDERING': { nq.routerLink = 'app-ordering'; break; }
+                }
+                return nq;
+              });
+
+            }
+            this.router.navigate([`/response/${this.questions[0].routerLink}`]);
           } else {
             this.toastService.notifyToast('error', 'Error', data.message);
           }
@@ -54,21 +68,10 @@ export class ResponsePageComponent implements OnInit {
       }
     );
     this.sessionResponse = this.sessionService.sessionResponseValue;
+    
     //  console.log(this.sessionResponse);
 
-    if (this.sessionResponse) {
-      this.questions = this.sessionResponse?.idquiz.questions.map(q => {
-        const nq = { ...q };
-        switch (nq.question_type) {
-          case 'QCM': { nq.routerLink = `qcm/${q._id}`; break; }
-          case 'QCU': { nq.routerLink = `qcu/${q._id}`; break; }
-          case 'INPUT': { nq.routerLink = 'app-input'; break; }
-          case 'ORDERING': { nq.routerLink = 'app-ordering'; break; }
-        }
-        return nq;
-      });
-
-    }
+   
 
   }
 

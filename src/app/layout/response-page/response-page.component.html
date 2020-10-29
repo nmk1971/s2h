@@ -6,7 +6,9 @@
       Description : {{sessionResponse.idquiz.description}}
    </ng-template>
    <ng-template pTemplate="content">
-      <p-steps [model]="questions" [readonly]="false" class="customstepper"></p-steps>
+      <div class="scroll">
+      <p-steps  [model]="questions" [readonly]="false"></p-steps>
+   </div>
       <router-outlet></router-outlet>
    </ng-template>
 </p-card>
