@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SessionService } from '../../session.service';
@@ -13,6 +13,7 @@ export class QcuFormComponent implements OnInit, OnDestroy {
   private questionId;
   private subscription: Subscription;
   public session: any;
+
 
   constructor(
     private sessionService: SessionService,
@@ -62,5 +63,10 @@ export class QcuFormComponent implements OnInit, OnDestroy {
       return (q._id === quest._id) ? (quest) : q;
       });
     this.sessionService.notify(this.session);
+    }
+
+    getCurrentIndex(): number{
+      return this.session.idquiz.questions.findIndex(elm => elm._id === this.currentQuestion._id) + 1;
+  
     }
 }

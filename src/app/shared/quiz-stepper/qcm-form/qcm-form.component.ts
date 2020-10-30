@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { SessionService } from './../../session.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getRoute } from '../../../shared/helpers/question-navigation';
 
@@ -34,8 +34,10 @@ export class QcmFormComponent implements OnInit, OnDestroy {
 
 
   nextPage(): void {
+
     this.saveQuestion(this.currentQuestion);
     this.router.navigate([getRoute(this.currentQuestion, 'next')]);
+    
   }
 
   previousPage(): void {
@@ -54,6 +56,11 @@ export class QcmFormComponent implements OnInit, OnDestroy {
   postResponsesToApi(): void {
     this.saveQuestion(this.currentQuestion);
     console.log(this.sessionService.currentSessionValue);
+
+  }
+
+  getCurrentIndex(): number{
+    return this.session.idquiz.questions.findIndex(elm => elm._id === this.currentQuestion._id) + 1;
 
   }
 

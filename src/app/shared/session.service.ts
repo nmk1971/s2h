@@ -91,7 +91,6 @@ export class SessionService {
                   return resp;
                 });
               }
-
               return quest;
             });
             localStorage.setItem('sessionResponse', JSON.stringify(sessionResponse));

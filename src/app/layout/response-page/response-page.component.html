@@ -7,9 +7,10 @@
    </ng-template>
    <ng-template pTemplate="content">
       <div class="scroll">
-      <p-steps  [model]="questions" [readonly]="false"></p-steps>
+      <p-steps (activeIndexChange)="getActiveIndex($event)" [model]="questions" [readonly]="false" [(activeIndex)]="activeIndex"></p-steps>
    </div>
-      <router-outlet></router-outlet>
+   
+      <router-outlet (activate)="setActiveIndex($event)"></router-outlet>
    </ng-template>
 </p-card>
 

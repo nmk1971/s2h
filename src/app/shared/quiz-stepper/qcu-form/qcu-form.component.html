@@ -1,21 +1,24 @@
-<p><span>Question : </span><span>{{currentQuestion.questionText}}</span></p>
-<ng-template pTemplate="subtitle">
-    NB : Choisir la réponse valide
- </ng-template>
-<div *ngFor="let resp of currentQuestion.qcxResponse; let i=index" class="table-row">
-    <span>
-        <mat-radio-button [checked]="resp.isValid" (change)='radioChecked(i)'>
-        </mat-radio-button>
-    </span>
-    <span>
-        <mat-label>
-            {{resp.label}}
-        </mat-label>
-    </span>
-</div>
+<p-card>
+    <p><span>Question : </span><span>{{currentQuestion.questionText}}</span></p>
+    <ng-template pTemplate="subtitle">
+        NB : Choisir la réponse valide
+    </ng-template>
+    <div *ngFor="let resp of currentQuestion.qcxResponse; let i=index" class="table-row">
+        <span>
+            <mat-radio-button [checked]="resp.isValid" (change)='radioChecked(i)'>
+            </mat-radio-button>
+        </span>
+        <span>
+            <mat-label>
+                {{resp.label}}
+            </mat-label>
+        </span>
+    </div>
+    <p><span [innerHTML]="getCurrentIndex()"></span>/<span>{{session?.idquiz?.questions?.length}}</span></p>
+</p-card>
 
 <div class="p-d-flex p-jc-between">
-    <button  mat-raised-button color="primary" *ngIf="currentQuestion.previous" (click)="previousPage()">
+    <button mat-raised-button color="primary" *ngIf="currentQuestion.previous" (click)="previousPage()">
         Précédent
     </button>
     <button mat-raised-button color="primary" *ngIf="currentQuestion.next" (click)="nextPage()">
@@ -24,9 +27,6 @@
     <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="postResponsesToApi()">
         Terminer
     </button>
-   
- 
+
+
 </div>
-
-
-

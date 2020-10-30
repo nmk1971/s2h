@@ -1,18 +1,20 @@
-<p><span>Question : </span><span>{{currentQuestion.questionText}}</span></p>
-<ng-template pTemplate="subtitle">
-    NB : Choisir une ou plusieurs réponses
-</ng-template>
+<p-card>
+    p>
+    <span>{{currentQuestion.questionText}}</span>
+    <ng-template pTemplate="subtitle">
+        NB : Choisir une ou plusieurs réponses
+    </ng-template>
+    <div>
+        <div *ngFor="let response of currentQuestion.qcxResponse" class="table-row">
+            <div class="p-flex p-jc-center">
+                <mat-checkbox [(ngModel)]="response.isValid">{{response.label}}
+                </mat-checkbox>
+            </div>
 
-<div>
-
-    <div *ngFor="let response of currentQuestion.qcxResponse" class="table-row">
-        <div class="p-flex p-jc-center">
-            <mat-checkbox [(ngModel)]="response.isValid">{{response.label}}
-            </mat-checkbox>
         </div>
-
     </div>
-</div>
+    <p><span [innerHTML]="getCurrentIndex()"></span>/<span>{{session?.idquiz?.questions?.length}}</span></p>
+</p-card>
 
 
 <div class="p-mr-2 p-as-end p-d-flex p-jc-between">
@@ -26,5 +28,5 @@
         Terminer
     </button>
 
-   
+
 </div>
