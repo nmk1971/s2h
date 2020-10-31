@@ -1,19 +1,18 @@
 <p-card>
-    p>
-    <span>{{currentQuestion.questionText}}</span>
+    <span>{{currentQuestion?.questionText}}</span>
     <ng-template pTemplate="subtitle">
         NB : Choisir une ou plusieurs réponses
     </ng-template>
     <div>
-        <div *ngFor="let response of currentQuestion.qcxResponse" class="table-row">
+        <div *ngFor="let response of currentQuestion?.qcxResponse" class="table-row">
             <div class="p-flex p-jc-center">
-                <mat-checkbox [(ngModel)]="response.isValid">{{response.label}}
+                <mat-checkbox [(ngModel)]="response.isValid">{{response?.label}}
                 </mat-checkbox>
             </div>
 
         </div>
     </div>
-    <p><span [innerHTML]="getCurrentIndex()"></span>/<span>{{session?.idquiz?.questions?.length}}</span></p>
+    <p class="p-d-flex p-jc-end"><span [innerHTML]="getCurrentIndex()"></span>/<span>{{session?.idquiz?.questions?.length}}</span></p>
 </p-card>
 
 
@@ -27,6 +26,5 @@
     <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="postResponsesToApi()">
         Terminer
     </button>
-
-
 </div>
+

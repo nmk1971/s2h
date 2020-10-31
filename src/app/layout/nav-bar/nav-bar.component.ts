@@ -1,3 +1,4 @@
+import { SessionService } from './../../shared/session.service';
 import { AuthenticationService } from './../../shared/user/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
@@ -13,6 +14,7 @@ export class NavBarComponent implements OnInit {
   items: MenuItem[];
 
   constructor(private authenticationService: AuthenticationService,
+              private sessionService: SessionService,
               private router: Router){}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class NavBarComponent implements OnInit {
 
   logout(): void{
     this.authenticationService.logout();
+    this.sessionService.notify(null);
     this.router.navigate(['/home']);
   }
 }

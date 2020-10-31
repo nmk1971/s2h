@@ -9,10 +9,10 @@ import {getRoute} from '../../../shared/helpers/question-navigation';
   styleUrls: ['./qcu-form.component.scss']
 })
 export class QcuFormComponent implements OnInit, OnDestroy {
-  public currentQuestion: any;
-  private questionId;
+  public currentQuestion: any = null;
+  private questionId = null;
   private subscription: Subscription;
-  public session: any;
+  public session: any = null;
 
 
   constructor(
@@ -55,7 +55,6 @@ export class QcuFormComponent implements OnInit, OnDestroy {
 
   postResponsesToApi(): void {
     this.saveQuestion(this.currentQuestion);
-    console.log(this.sessionService.currentSessionValue);
   }
 
   saveQuestion(quest): void{

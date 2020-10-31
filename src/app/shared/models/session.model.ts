@@ -1,6 +1,6 @@
 export interface ISession {
     _id?: string;
-    idquiz: string;
+    idquiz: string | any;
     evaluationType: string;
     isAnonymous: boolean;
     group?: string;

@@ -1,16 +1,16 @@
 <p-card>
    <ng-template pTemplate="title">
-     Quiz : {{sessionResponse.idquiz.title}}
+     Quiz : {{sessionResponse?.idquiz?.title}}
    </ng-template>
    <ng-template pTemplate="subtitle">
-      Description : {{sessionResponse.idquiz.description}}
+      Description : {{sessionResponse?.idquiz?.description}}
    </ng-template>
    <ng-template pTemplate="content">
       <div class="scroll">
-      <p-steps (activeIndexChange)="getActiveIndex($event)" [model]="questions" [readonly]="false" [(activeIndex)]="activeIndex"></p-steps>
+      <p-steps [model]="questions" [readonly]="false"></p-steps>
    </div>
-   
-      <router-outlet (activate)="setActiveIndex($event)"></router-outlet>
+      <router-outlet></router-outlet>
    </ng-template>
 </p-card>
+
 

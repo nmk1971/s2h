@@ -42,7 +42,6 @@ export class AuthenticationService {
                 } catch (error) {
                     user = null;
                 }
-                console.log(user);
                 return ({
                     status: response.status,
                     message: response.message,

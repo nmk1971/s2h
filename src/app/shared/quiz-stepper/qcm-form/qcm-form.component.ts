@@ -37,7 +37,7 @@ export class QcmFormComponent implements OnInit, OnDestroy {
 
     this.saveQuestion(this.currentQuestion);
     this.router.navigate([getRoute(this.currentQuestion, 'next')]);
-    
+
   }
 
   previousPage(): void {
@@ -55,8 +55,6 @@ export class QcmFormComponent implements OnInit, OnDestroy {
 
   postResponsesToApi(): void {
     this.saveQuestion(this.currentQuestion);
-    console.log(this.sessionService.currentSessionValue);
-
   }
 
   getCurrentIndex(): number{
