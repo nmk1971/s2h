@@ -23,7 +23,7 @@
     <button mat-raised-button color="primary" *ngIf="currentQuestion.next" (click)="nextPage()">
         Suivant
     </button>
-    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="postResponsesToApi()">
+    <button mat-raised-button color="primary" *ngIf="!currentQuestion.next" (click)="endResponseSession()">
         Terminer
     </button>
 </div>

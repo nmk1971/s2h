@@ -53,8 +53,10 @@ export class QcuFormComponent implements OnInit, OnDestroy {
   }
 
 
-  postResponsesToApi(): void {
+  endResponseSession(): void {
     this.saveQuestion(this.currentQuestion);
+    console.log(this.session);
+    this.router.navigate(['/finalresult']);
   }
 
   saveQuestion(quest): void{
@@ -66,6 +68,6 @@ export class QcuFormComponent implements OnInit, OnDestroy {
 
     getCurrentIndex(): number{
       return this.session.idquiz.questions.findIndex(elm => elm._id === this.currentQuestion._id) + 1;
-  
+
     }
 }

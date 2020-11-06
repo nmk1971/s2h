@@ -1,16 +1,21 @@
 <p-card>
    <ng-template pTemplate="title">
-     Quiz : {{sessionResponse?.idquiz?.title}}
+      Quiz : {{sessionResponse?.idquiz?.title}} 
+      
    </ng-template>
-   <ng-template pTemplate="subtitle">
+  <div class="p-mr-2 p-as-end p-d-flex p-jc-between">
+      <div>
+         <p>{{sessionResponse?.creator?.fullusername}}</p>
+      </div>
+   </div>
+
+   <ng-template pTemplate="subtitle" *ngIf="sessionResponse?.idquiz?.description!==''">
       Description : {{sessionResponse?.idquiz?.description}}
    </ng-template>
    <ng-template pTemplate="content">
       <div class="scroll">
-      <p-steps [model]="questions" [readonly]="false"></p-steps>
-   </div>
+         <p-steps [model]="questions" [readonly]="false"></p-steps>
+      </div>
       <router-outlet></router-outlet>
    </ng-template>
 </p-card>
-
-

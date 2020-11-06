@@ -7,13 +7,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QcuFormComponent } from './qcu-form/qcu-form.component';
 import { QcmFormComponent } from './qcm-form/qcm-form.component';
+import { FinalResultComponent } from './final-result/final-result.component';
 
 
 
 
 
 @NgModule({
-  declarations: [QcuFormComponent, QcmFormComponent],
+  declarations: [QcuFormComponent, QcmFormComponent, FinalResultComponent],
   imports: [
     CommonModule,
     FormsModule,

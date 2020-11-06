@@ -52,9 +52,12 @@ export class QcmFormComponent implements OnInit, OnDestroy {
     });
     this.sessionService.notify(this.session);
   }
-
-  postResponsesToApi(): void {
+/**
+ * this method called at the end of the sessionResponse
+ */
+  endResponseSession(): void {
     this.saveQuestion(this.currentQuestion);
+    this.router.navigate(['/finalresult']);
   }
 
   getCurrentIndex(): number{

@@ -1,3 +1,4 @@
+import { FinalResultComponent } from './shared/quiz-stepper/final-result/final-result.component';
 import { QcmFormComponent } from './shared/quiz-stepper/qcm-form/qcm-form.component';
 import { LoginComponent } from './shared/user/login/login.component';
 import { ResponsePageComponent } from './layout/response-page/response-page.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'qcm/:qid', component: QcmFormComponent }
     ]
   },
+  { path: 'finalresult', component: FinalResultComponent, canActivate: null },
   { path: 'contact', component: ContactPageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
