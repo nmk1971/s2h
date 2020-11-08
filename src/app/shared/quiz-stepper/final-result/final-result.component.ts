@@ -15,9 +15,9 @@ export class FinalResultComponent implements OnInit {
   public isLoading = false;
 
   constructor(private sessionService: SessionService,
-              private authenticationService: AuthenticationService,
-              private responseService: ResponseService,
-              private toastService: ToastService) { }
+    private authenticationService: AuthenticationService,
+    private responseService: ResponseService,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.response = { ...this.sessionService.sessionResponseValue };
@@ -28,13 +28,17 @@ export class FinalResultComponent implements OnInit {
       this.responseService.postResponse(this.response).subscribe(
         {
           next: (data: IApiResponse) => {
-            this.toastService.notifyToast('info', 'info', data.message);
+            this.toastService.notifyToast('info', 'info', data.message, 3000);
+            this.isLoading = false;
 
           },
           error: (err: Error) => {
             this.toastService.notifyToast('error', 'Error', err);
           },
-          complete: () => {}
+          complete: () => {
+            this.isLoading = false;
+
+          }
         }
       );
     }

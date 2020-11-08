@@ -3,6 +3,7 @@ export interface ISession {
     idquiz: string | any;
     evaluationType: string;
     isAnonymous: boolean;
+    returnCorrectResponse: boolean;
     group?: string;
     creator?: string;
     quizSessionCode?: string;
