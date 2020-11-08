@@ -1,1 +1,11 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="response?.returnCorrectResponse">
+    
+</div>
+<div *ngIf="!response?.returnCorrectResponse">
+    <h2> Vous avez répondu correctement à 
+        <span class="results">{{result.correctResponsesNumber}}</span> 
+        questions parmi <span class="results">{{result.totalResponsesNumber}}</span>
+    </h2>
+    <h1> Votre score est de {{result.score * 100}} %</h1>
+</div>

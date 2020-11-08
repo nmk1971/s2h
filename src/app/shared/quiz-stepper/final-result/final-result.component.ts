@@ -12,12 +12,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FinalResultComponent implements OnInit {
   public response: any;
+  public result: any;
   public isLoading = false;
 
   constructor(private sessionService: SessionService,
-    private authenticationService: AuthenticationService,
-    private responseService: ResponseService,
-    private toastService: ToastService) { }
+              private authenticationService: AuthenticationService,
+              private responseService: ResponseService,
+              private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.response = { ...this.sessionService.sessionResponseValue };
@@ -30,6 +31,7 @@ export class FinalResultComponent implements OnInit {
           next: (data: IApiResponse) => {
             this.toastService.notifyToast('info', 'info', data.message, 3000);
             this.isLoading = false;
+            this.result = data.payload;
 
           },
           error: (err: Error) => {
