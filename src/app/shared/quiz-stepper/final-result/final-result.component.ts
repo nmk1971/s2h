@@ -14,6 +14,9 @@ export class FinalResultComponent implements OnInit {
   public response: any;
   public result: any;
   public isLoading = false;
+  public correctResponsesNumber: number;
+  public totalResponsesNumber: number;
+  public score: number;
 
   constructor(private sessionService: SessionService,
               private authenticationService: AuthenticationService,
@@ -32,6 +35,16 @@ export class FinalResultComponent implements OnInit {
             this.toastService.notifyToast('info', 'info', data.message, 3000);
             this.isLoading = false;
             this.result = data.payload;
+            this.correctResponsesNumber =
+              this.result.hasOwnProperty('sessionId') ?
+                this.result.questions.filter(quest => quest.isCorrect === true).length :
+                this.result.correctResponsesNumber;
+            this.totalResponsesNumber =
+              this.result.hasOwnProperty('sessionId') ?
+                this.result.questions.length :
+                this.result.totalResponsesNumber;
+            this.score = this.result.score;
+            this.sessionService.endSession();
 
           },
           error: (err: Error) => {
@@ -39,7 +52,7 @@ export class FinalResultComponent implements OnInit {
           },
           complete: () => {
             this.isLoading = false;
-
+            this.sessionService.endSession();
           }
         }
       );
