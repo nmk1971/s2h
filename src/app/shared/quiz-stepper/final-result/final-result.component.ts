@@ -3,7 +3,8 @@ import { IApiResponse } from './../../helpers/api-response.model';
 import { ResponseService } from './../../response.service';
 import { AuthenticationService } from './../../user/authentication.service';
 import { SessionService } from './../../session.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-final-result',
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./final-result.component.scss']
 })
 export class FinalResultComponent implements OnInit {
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   public response: any;
   public result: any;
   public isLoading = false;
@@ -43,12 +45,25 @@ export class FinalResultComponent implements OnInit {
               this.result.hasOwnProperty('sessionId') ?
                 this.result.questions.length :
                 this.result.totalResponsesNumber;
+            if (this.result.hasOwnProperty('sessionId')) {
+              this.result.questions.map(quest => {
+                if (quest.question_type === 'QCU' || quest.question_type === 'QCM') {
+                  quest.qcxResponse.map(resp => {
+                    resp.correctIsValid = quest.qcxCorrectResponse.filter(corrResp => corrResp._id === resp._id)[0].isValid;
+                    console.log(resp);
+                    return resp;
+                  });
+                }
+                return quest;
+              });
+            }
             this.score = this.result.score;
             this.sessionService.endSession();
-
           },
           error: (err: Error) => {
             this.toastService.notifyToast('error', 'Error', err);
+            //            this.sessionService.endSession();
+            this.isLoading = false;
           },
           complete: () => {
             this.isLoading = false;
@@ -57,7 +72,5 @@ export class FinalResultComponent implements OnInit {
         }
       );
     }
-
   }
-
 }

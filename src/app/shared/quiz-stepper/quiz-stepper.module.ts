@@ -10,9 +10,6 @@ import { QcmFormComponent } from './qcm-form/qcm-form.component';
 import { FinalResultComponent } from './final-result/final-result.component';
 
 
-
-
-
 @NgModule({
   declarations: [QcuFormComponent, QcmFormComponent, FinalResultComponent],
   imports: [

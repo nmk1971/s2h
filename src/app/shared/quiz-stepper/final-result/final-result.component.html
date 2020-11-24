@@ -8,13 +8,49 @@
         <h1> Votre score est de {{score * 100}} %</h1>
     </div>
     <div *ngIf="response?.returnCorrectResponse">
-        <div *ngFor="let quest of result.questions; let i=index;"
-            [ngStyle]="{'background-color': (quest.isCorrect===true) ? '#73c7af' : '#ffffff'}">
-            {{i+1}}- {{quest.questionText}}
-            <div *ngFor="let resp of quest.qxcResponse">
-
-            </div>
+        <div class="example-action-buttons">
+            <button mat-button (click)="accordion.openAll()">Tout Ouvrir</button>
+            <button mat-button (click)="accordion.closeAll()">Tout Fermer</button>
         </div>
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel *ngFor="let quest of result.questions; let i=index;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{i+1}}- {{quest.questionText}}
+                    </mat-panel-title>
+                 </mat-expansion-panel-header>
+
+                <mat-list>
+                    <mat-list-item *ngFor="let resp of quest.qcxResponse;">
+                        <h3 matLine> {{resp.label}} {{resp.isValid}} {{resp.correctIsValid}}</h3>
+                    </mat-list-item>
+                </mat-list>
+
+
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
+ <!--   <pre><code>{{result | json}}</code></pre>
+    <div *ngFor="let quest of result.questions; let i=index;"
+        [ngStyle]="{'background-color': (quest.isCorrect===true) ? '#00ff00' : '#ff0000'}">
+
+        {{i+1}}- {{quest.questionText}}
+        <table border="1">
+            <tr>
+                <td>Réponse</td>
+                <td>Votre réponse</td>
+                <td>Réponse correcte</td>
+            </tr>
+
+            <tr *ngFor="let resp of quest.qcxResponse;">
+                <td>{{resp.label}}</td>
+                <td>{{resp.isValid}}</td>
+                <td>{{resp.correctIsValid}}</td>
+            </tr>
+
+
+        </table>
+    </div>
+-->
 
 </div>
