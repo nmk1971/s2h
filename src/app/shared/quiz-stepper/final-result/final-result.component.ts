@@ -19,6 +19,7 @@ export class FinalResultComponent implements OnInit {
   public correctResponsesNumber: number;
   public totalResponsesNumber: number;
   public score: number;
+  public isSentTwice = false;
 
   constructor(private sessionService: SessionService,
               private authenticationService: AuthenticationService,
@@ -50,7 +51,6 @@ export class FinalResultComponent implements OnInit {
                 if (quest.question_type === 'QCU' || quest.question_type === 'QCM') {
                   quest.qcxResponse.map(resp => {
                     resp.correctIsValid = quest.qcxCorrectResponse.filter(corrResp => corrResp._id === resp._id)[0].isValid;
-                    console.log(resp);
                     return resp;
                   });
                 }
@@ -62,6 +62,7 @@ export class FinalResultComponent implements OnInit {
           },
           error: (err: Error) => {
             this.toastService.notifyToast('error', 'Error', err);
+            this.isSentTwice = true;
             //            this.sessionService.endSession();
             this.isLoading = false;
           },

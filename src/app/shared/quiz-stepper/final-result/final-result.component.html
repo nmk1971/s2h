@@ -1,5 +1,5 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoading && !isSentTwice">
     <div>
         <h2> Vous avez répondu correctement à
             <span class="results">{{correctResponsesNumber}}</span>
@@ -13,44 +13,34 @@
             <button mat-button (click)="accordion.closeAll()">Tout Fermer</button>
         </div>
         <mat-accordion class="example-headers-align" multi>
-            <mat-expansion-panel *ngFor="let quest of result.questions; let i=index;">
+            <mat-expansion-panel *ngFor="let quest of result?.questions; let i=index;">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title [ngStyle]="{'color': (quest.isCorrect===true) ? '#33FFC3' : '#FF5533'}">
+                        <mat-icon *ngIf="quest.isCorrect===true" style="color : '#33FFC3'">mood</mat-icon>
+                        <mat-icon *ngIf="quest.isCorrect===false" style="color : '#FF5533'">mood_bad</mat-icon>
                         {{i+1}}- {{quest.questionText}}
                     </mat-panel-title>
-                 </mat-expansion-panel-header>
+                </mat-expansion-panel-header>
 
                 <mat-list>
-                    <mat-list-item *ngFor="let resp of quest.qcxResponse;">
-                        <h3 matLine> {{resp.label}} {{resp.isValid}} {{resp.correctIsValid}}</h3>
+                    <mat-list-item *ngFor="let resp of quest?.qcxResponse;">
+
+                        <h3 matLine class="layout-footer">
+                            <div style="color:#252525" class="layout-footer-left">{{resp.label}}</div>
+                            <div class="layout-footer-right">
+                                <mat-icon [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}" *ngIf="!resp.isValid">panorama_fish_eye</mat-icon>
+                                <mat-icon [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}" *ngIf="resp.isValid">check_circle_outline</mat-icon>
+                                <mat-icon style="color:'#252525'" *ngIf="!resp.correctIsValid">panorama_fish_eye</mat-icon>
+                                <mat-icon style="color:'#252525'" *ngIf="resp.correctIsValid">check_circle_outline</mat-icon>
+                            </div>
+                        </h3>
                     </mat-list-item>
                 </mat-list>
-
-
             </mat-expansion-panel>
         </mat-accordion>
     </div>
- <!--   <pre><code>{{result | json}}</code></pre>
-    <div *ngFor="let quest of result.questions; let i=index;"
-        [ngStyle]="{'background-color': (quest.isCorrect===true) ? '#00ff00' : '#ff0000'}">
-
-        {{i+1}}- {{quest.questionText}}
-        <table border="1">
-            <tr>
-                <td>Réponse</td>
-                <td>Votre réponse</td>
-                <td>Réponse correcte</td>
-            </tr>
-
-            <tr *ngFor="let resp of quest.qcxResponse;">
-                <td>{{resp.label}}</td>
-                <td>{{resp.isValid}}</td>
-                <td>{{resp.correctIsValid}}</td>
-            </tr>
-
-
-        </table>
-    </div>
--->
-
 </div>
+
+<h1 *ngIf="isSentTwice" style="color:tomato;">
+    Impossible de revoir vos résultats, la session est déjà fermée.
+</h1>
