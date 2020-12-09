@@ -22,9 +22,9 @@ export class FinalResultComponent implements OnInit {
   public isSentTwice = false;
 
   constructor(private sessionService: SessionService,
-              private authenticationService: AuthenticationService,
-              private responseService: ResponseService,
-              private toastService: ToastService) { }
+    private authenticationService: AuthenticationService,
+    private responseService: ResponseService,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.response = { ...this.sessionService.sessionResponseValue };
@@ -38,26 +38,28 @@ export class FinalResultComponent implements OnInit {
             this.toastService.notifyToast('info', 'info', data.message, 3000);
             this.isLoading = false;
             this.result = data.payload;
-            this.correctResponsesNumber =
-              this.result.hasOwnProperty('sessionId') ?
-                this.result.questions.filter(quest => quest.isCorrect === true).length :
-                this.result.correctResponsesNumber;
-            this.totalResponsesNumber =
-              this.result.hasOwnProperty('sessionId') ?
-                this.result.questions.length :
-                this.result.totalResponsesNumber;
-            if (this.result.hasOwnProperty('sessionId')) {
-              this.result.questions.map(quest => {
-                if (quest.question_type === 'QCU' || quest.question_type === 'QCM') {
-                  quest.qcxResponse.map(resp => {
-                    resp.correctIsValid = quest.qcxCorrectResponse.filter(corrResp => corrResp._id === resp._id)[0].isValid;
-                    return resp;
-                  });
-                }
-                return quest;
-              });
+            if (!this.result.hasOwnProperty('message')) {
+              this.correctResponsesNumber =
+                this.result.hasOwnProperty('sessionId') ?
+                  this.result.questions.filter(quest => quest.isCorrect === true).length :
+                  this.result.correctResponsesNumber;
+              this.totalResponsesNumber =
+                this.result.hasOwnProperty('sessionId') ?
+                  this.result.questions.length :
+                  this.result.totalResponsesNumber;
+              if (this.result.hasOwnProperty('sessionId')) {
+                this.result.questions.map(quest => {
+                  if (quest.question_type === 'QCU' || quest.question_type === 'QCM') {
+                    quest.qcxResponse.map(resp => {
+                      resp.correctIsValid = quest.qcxCorrectResponse.filter(corrResp => corrResp._id === resp._id)[0].isValid;
+                      return resp;
+                    });
+                  }
+                  return quest;
+                });
+              }
+              this.score = this.result.score;
             }
-            this.score = this.result.score;
             this.sessionService.endSession();
           },
           error: (err: Error) => {

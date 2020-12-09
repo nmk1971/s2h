@@ -1,43 +1,54 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading && !isSentTwice">
-    <div>
-        <h2> Vous avez répondu correctement à
-            <span class="results">{{correctResponsesNumber}}</span>
-            questions parmi <span class="results">{{totalResponsesNumber}}</span>
-        </h2>
-        <h1> Votre score est de {{score * 100}} %</h1>
-    </div>
-    <div *ngIf="response?.returnCorrectResponse">
-        <div class="example-action-buttons">
-            <button mat-button (click)="accordion.openAll()">Tout Ouvrir</button>
-            <button mat-button (click)="accordion.closeAll()">Tout Fermer</button>
+    <div *ngIf="response.evaluationType!=='Sondage'">
+        <div>
+            <h2> Vous avez répondu correctement à
+                <span class="results">{{correctResponsesNumber}}</span>
+                questions parmi <span class="results">{{totalResponsesNumber}}</span>
+            </h2>
+            <h1> Votre score est de {{score * 100}} %</h1>
         </div>
-        <mat-accordion class="example-headers-align" multi>
-            <mat-expansion-panel *ngFor="let quest of result?.questions; let i=index;">
-                <mat-expansion-panel-header>
-                    <mat-panel-title [ngStyle]="{'color': (quest.isCorrect===true) ? '#33FFC3' : '#FF5533'}">
-                        <mat-icon *ngIf="quest.isCorrect===true" style="color : '#33FFC3'">mood</mat-icon>
-                        <mat-icon *ngIf="quest.isCorrect===false" style="color : '#FF5533'">mood_bad</mat-icon>
-                        {{i+1}}- {{quest.questionText}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
+        <div *ngIf="response?.returnCorrectResponse">
+            <div class="example-action-buttons">
+                <button mat-button (click)="accordion.openAll()">Tout Ouvrir</button>
+                <button mat-button (click)="accordion.closeAll()">Tout Fermer</button>
+            </div>
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel *ngFor="let quest of result?.questions; let i=index;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngStyle]="{'color': (quest.isCorrect===true) ? '#33FFC3' : '#FF5533'}">
+                            <mat-icon *ngIf="quest.isCorrect===true" style="color : '#33FFC3'">mood</mat-icon>
+                            <mat-icon *ngIf="quest.isCorrect===false" style="color : '#FF5533'">mood_bad</mat-icon>
+                            {{i+1}}- {{quest.questionText}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
 
-                <mat-list>
-                    <mat-list-item *ngFor="let resp of quest?.qcxResponse;">
+                    <mat-list>
+                        <mat-list-item *ngFor="let resp of quest?.qcxResponse;">
 
-                        <h3 matLine class="layout-footer">
-                            <div style="color:#252525" class="layout-footer-left">{{resp.label}}</div>
-                            <div class="layout-footer-right">
-                                <mat-icon [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}" *ngIf="!resp.isValid">panorama_fish_eye</mat-icon>
-                                <mat-icon [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}" *ngIf="resp.isValid">check_circle_outline</mat-icon>
-                                <mat-icon style="color:'#252525'" *ngIf="!resp.correctIsValid">panorama_fish_eye</mat-icon>
-                                <mat-icon style="color:'#252525'" *ngIf="resp.correctIsValid">check_circle_outline</mat-icon>
-                            </div>
-                        </h3>
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel>
-        </mat-accordion>
+                            <h3 matLine class="layout-footer">
+                                <div style="color:#252525" class="layout-footer-left">{{resp.label}}</div>
+                                <div class="layout-footer-right">
+                                    <mat-icon
+                                        [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}"
+                                        *ngIf="!resp.isValid">panorama_fish_eye</mat-icon>
+                                    <mat-icon
+                                        [ngStyle]="{'color': (resp.isValid === resp.correctIsValid) ? '#33FFC3' : '#FF5533'}"
+                                        *ngIf="resp.isValid">check_circle_outline</mat-icon>
+                                    <mat-icon style="color:'#252525'" *ngIf="!resp.correctIsValid">panorama_fish_eye
+                                    </mat-icon>
+                                    <mat-icon style="color:'#252525'" *ngIf="resp.correctIsValid">check_circle_outline
+                                    </mat-icon>
+                                </div>
+                            </h3>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+    <div *ngIf="response.evaluationType==='Sondage'">
+        <h1>{{result?.message}}</h1>
     </div>
 </div>
 
